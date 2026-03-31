@@ -1,26 +1,336 @@
 @import "tailwindcss";
+@import "intl-tel-input/build/css/intlTelInput.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.hidden-phone-input {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(4.9% 0.079 252.2);
+  --color-primary: oklch(11.2% 0.099 252.2);
+  --color-primary-foreground: oklch(98% 0.035 210);
+  --color-secondary: oklch(96.1% 0.031 210);
+  --color-secondary-foreground: oklch(11.2% 0.099 252.2);
+  --color-muted: oklch(96.1% 0.031 210);
+  --color-muted-foreground: oklch(46.9% 0.091 215.4);
+  --color-accent: oklch(96.1% 0.031 210);
+  --color-accent-foreground: oklch(11.2% 0.099 252.2);
+  --color-destructive: oklch(60.2% 0.214 25);
+  --color-destructive-foreground: oklch(98% 0.035 210);
+  --color-border: oklch(91.4% 0.063 214.3);
+  --color-input: oklch(91.4% 0.063 214.3);
+  --color-ring: oklch(4.9% 0.079 252.2);
+  --color-chart-1: oklch(61% 0.222 25);
+  --color-chart-2: oklch(39% 0.136 173);
+  --color-chart-3: oklch(24% 0.11 197);
+  --color-chart-4: oklch(56% 0.183 43);
+  --color-chart-5: oklch(67% 0.158 27);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply box-border;
+    border-color: var(--color-border);
+  }
+  html, body {
+    @apply w-full max-w-full min-w-0 overflow-x-hidden;
+  }
+  body {
+    @apply font-sans bg-background text-foreground;
+    font-family: 'Roboto', system-ui, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .navbar {
+    @apply bg-white px-5 py-4 shadow-sm w-full;
+  }
+  .navbar img {
+    @apply h-10 w-auto;
+  }
+
+  .hero {
+    @apply bg-[#2d4a44] px-5 flex items-center justify-center w-full max-w-full overflow-hidden;
+  }
+
+  .form-section {
+    @apply order-2;
+  }
+  .steps-section {
+    @apply order-1;
+  }
+  .hero-text {
+    @apply w-full flex flex-col items-start justify-center;
+  }
+  .hero-image {
+    @apply hidden;
+  }
+  .hero-content {
+    @apply grid grid-cols-1 gap-7 w-full max-w-full mx-auto px-4 h-full items-center;
+  }
+
+  .hero-image img {
+    @apply object-cover object-top rounded-lg shadow-lg w-full;
+  }
+  .hero h1 {
+    @apply text-4xl text-white font-black mb-5 leading-tight;
+  }
+  .hero h1 span {
+    @apply text-gray-100 font-black;
+  }
+  .hero p {
+    @apply text-white text-base text-left max-w-md font-normal;
+  }
+
+  .main {
+    @apply grid grid-cols-1 gap-7 w-full max-w-full min-w-0 mx-auto pb-10;
+  }
+
+  .form-section {
+    @apply bg-[#2d4a44] rounded-none w-full max-w-full min-w-0 shadow-md;
+  }
+  .form-section h2 {
+    @apply text-white text-2xl mb-7 font-bold tracking-wide;
+  }
+  .form-section h3 {
+    @apply text-white text-2xl mb-5 font-semibold;
+  }
+  .form-section label {
+    @apply text-[#a8c5bf] text-sm block mb-2 font-medium;
+  }
+
+  .form-section input {
+    @apply w-full max-w-full px-4 py-3 border-2 border-white/30 rounded text-base font-sans bg-white text-[#2d4a44] transition-all mb-5 box-border;
+    font-family: 'Roboto', sans-serif;
+  }
+  .iti .form-section.input {
+    @apply w-full px-4 py-3 border-2 border-white/30 rounded-r text-base font-sans bg-white text-[#2d4a44] transition-all flex-1;
+    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 0 4px 4px 0;
+  }
+  .form-section input::placeholder {
+    @apply text-gray-400;
+    color: rgba(45,74,68,0.5);
+  }
+  .form-section input:focus {
+    @apply outline-none border-[#d9724d] bg-white shadow-lg;
+  }
+  .form-section input:hover {
+    @apply border-white/50;
+  }
+  .iti .form-section.input:focus {
+    @apply border-[#d9724d] shadow-lg;
+  }
+  .iti .form-section.input:hover {
+    @apply border-white/50;
+  }
+
+  .form-section-divider {
+    @apply h-px bg-white/20 my-6;
+  }
+  .section-label {
+    @apply block text-base font-semibold text-[#d9724d] mb-1;
+  }
+  .section-description {
+    @apply text-[#a8c5bf] text-sm mb-5;
+  }
+
+  .step-description {
+    @apply text-[#a8c5bf] text-sm mb-5;
+  }
+
+  /* Form section buttons - excludes dial code button to prevent orange styling */
+  .form-section button:not(.dial-code-btn) {
+    @apply w-full bg-[#d9724d] text-white border-none px-6 py-4 text-lg font-medium cursor-pointer rounded transition-all shadow-md hover:bg-[#c2643f] hover:shadow-lg;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .form-section .dial-code-btn {
+    @apply flex items-center justify-center gap-1.5 px-3 py-3 bg-white rounded-l-[6px] hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#d9724d] h-[48px];
+  }
+  .step-indicators {
+    @apply flex items-center justify-center mb-7;
+  }
+  .step-indicator {
+    @apply flex flex-col items-center gap-1;
+  }
+  .step-indicator span {
+    @apply text-xs text-white font-medium;
+  }
+  .step-indicator.active span, .step-indicator.completed span {
+    @apply text-white;
+  }
+  .step-circle {
+    @apply w-9 h-9 rounded-full bg-white/20 flex items-center justify-center font-semibold text-white transition-all;
+  }
+  .step-indicator.active .step-circle, .step-indicator.completed .step-circle {
+    @apply bg-[#d9724d] text-white;
+  }
+  .step-line {
+    @apply w-10 h-0.5 bg-white/20 mx-2 mb-6;
+  }
+  .step-line.completed {
+    @apply bg-[#d9724d];
+  }
+
+  .button-row {
+    @apply flex gap-3 mt-2;
+  }
+  .next-btn, .back-btn {
+    @apply w-full px-4 py-4 text-base font-medium rounded-sm cursor-pointer transition-all uppercase tracking-wide;
+  }
+  .next-btn {
+    @apply bg-[#d9724d] text-white border-none hover:bg-[#c2643f];
+  }
+  .back-btn {
+    @apply bg-gray-500 text-white border-2 border-gray-500 hover:bg-gray-600 hover:border-gray-600;
+  }
+
+  .form-section button:disabled {
+    @apply bg-gray-400 cursor-not-allowed;
+  }
+  .form-section button .loader {
+    @apply hidden border-4 border-gray-100 border-t-[#d9724d] rounded-full w-5 h-5 animate-spin mx-auto;
+  }
+  .form-section button.loading .loader {
+    @apply block;
+  }
+  .form-section button.loading .button-text {
+    @apply hidden;
+  }
+  .form-section button:not(.back-btn):not(.dial-code-btn):hover {
+    @apply bg-[#c2643f] shadow-lg;
+  }
+
+  .whatsapp-section {
+    @apply hidden text-center py-10;
+  }
+  .whatsapp-section.show {
+    @apply block;
+    animation: fadeIn 0.5s ease-in;
+  }
+  .whatsapp-icon {
+    @apply flex justify-center text-7xl text-green-500 mb-5;
+  }
+  .whatsapp-section h3 {
+    @apply text-white text-2xl mb-5 font-bold;
+  }
+  .whatsapp-section a {
+    @apply block w-full bg-green-500 text-white text-center px-10 py-4 no-underline rounded font-medium transition-all hover:bg-green-600;
+  }
+
+  .steps-section {
+    @apply w-full max-w-full min-w-0 text-left mt-0;
+  }
+  .steps-grid {
+    @apply grid grid-cols-1 gap-7 items-start;
+  }
+  .steps-section h2 {
+    @apply text-[#2d4a44] text-4xl mb-5 font-bold text-left;
+  }
+  .step {
+    @apply flex items-center gap-5 opacity-40 transition-opacity;
+  }
+  .step.active {
+    @apply opacity-100;
+  }
+  .step-number {
+    @apply bg-[#2d4a44] text-white w-12 h-12 rounded-full flex items-center justify-center text-2xl font-medium flex-shrink-0;
+  }
+  .step.active .step-number {
+    @apply bg-[#2d4a44];
+  }
+  .step-text {
+    @apply text-[#2d4a44] text-xl;
+  }
+
+  .footer-image {
+    @apply block py-10 px-5 max-w-xl mx-auto;
+  }
+  .footer-image img {
+    @apply w-full h-auto rounded-lg shadow-lg;
+  }
+
+  .form-step {
+    @apply hidden;
+    animation: fadeIn 0.4s ease;
+  }
+  .form-step.active {
+    @apply block;
+  }
+  
+  @keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+  }
+
+  @keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+  }
+
+  @keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+
+  @media (min-width: 768px) {
+    .hero h1 { font-size: 48px; }
+    .hero p { font-size: 18px; }
+    .form-section { max-width: 500px; margin: 0 auto; border-radius: 8px; }
+    .form-section h2 { font-size: 32px; }
+    .steps-section { margin-top: 40px; max-width: 500px; }
+    .hero-content { gap: 40px; padding: 0 20px; }
+  }
+
+
+  @media (min-width: 1024px) {
+    .hero { max-height: 100vh; }
+    .hero-content { grid-template-columns: 1fr 1fr; max-width: 1200px; gap: 60px; padding: 0 20px; }
+    .hero-text { flex: 1; justify-content: flex-start; }
+    .form-section { order: 1; }
+    .main { grid-template-columns: 1fr 1fr; max-width: 100%; margin: -80px auto 0; padding: 0 20px 60px; align-items: flex-start; justify-items: center; }
+    .hero-image { display: block; flex: 1; width: 100%; }
+    .hero h1 { font-size: 64px; }
+    .hero p { font-size: 22px; text-align: left; }
+    .form-section { max-width: 450px; margin: 0; }
+    .footer-image { display: none; }
+    .steps-section { order: 2; max-width: 450px; margin-top: 100px; }
+    .steps-section h2 { margin-bottom: 40px; }
+  }
+
+
+  /* ================================
+     Section padding
+     Mobile → Tablet → Desktop
+     ================================ */
+
+  /* Mobile */
+  .hero         { padding-block: 6rem; }
+  .form-section { padding-block: 4rem; padding-inline: 2.75rem; }
+  .steps-section { padding-block: 4rem; padding-inline: 2.75rem; }
+
+  @media (min-width: 768px) {
+    .hero         { padding-block: 4rem; }
+    .form-section { padding-block: 2.5rem; padding-inline: 40px; }
+    .steps-section { padding-block: 2.5rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .hero         { padding-block: 2.5rem; }
+    .form-section { padding-block: 2.5rem; padding-inline: 40px; }
+    .steps-section { padding-block: 2.5rem; }
+  }
+
 }
