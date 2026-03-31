@@ -203,27 +203,30 @@ export default function WaitlistPage() {
       <nav className="navbar"><img src="https://cdn.jsdelivr.net/gh/kore4lyf/public@master/images/bema-hub/bemahub-logo.png" alt="Bema Hub Logo" /></nav>
 
       <div className="bg-[#2d4a44] px-5 py-8 md:py-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="hero-content">
           <div>
             <h1 className="text-4xl font-black text-white">Waitlist</h1>
             <p className="text-[#a8c5bf] text-base mt-2">Manage and view registered users</p>
           </div>
-          <Button onClick={fetchData} disabled={loading} className="gap-2 px-6 bg-[#d9724d] hover:bg-[#c2643f] text-white border-none">
-            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            Refresh
-          </Button>
+          <div className="flex justify-end">
+            <Button onClick={fetchData} disabled={loading} className="gap-2 px-6 bg-[#d9724d] hover:bg-[#c2643f] text-white border-none">
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+          </div>
         </div>
         {loading && (
-          <div className="max-w-7xl mx-auto mt-4">
+          <div className="mt-4">
             <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
-              <div className="bg-[#d9724d] h-full rounded-full animate-[loading_1.5s_ease-in-out_infinite]" style={{ width: "40%" }} />
+              <div className="bg-white h-full rounded-full animate-[loading_1.5s_ease-in-out_infinite] w-full" />
             </div>
           </div>
         )}
       </div>
 
-      <div className="py-10 md:py-12 px-6 md:px-8">
-        <div className="max-w-7xl mx-auto space-y-8">
+      <div className="main waitlist">
+        <div className="main-content">
+          <div className="space-y-8">
 
           <Card className="bg-[#2d4a44] border-none rounded-lg shadow-sm">
             <CardHeader className="flex flex-row items-center gap-1 space-y-0 pb-2">
@@ -312,7 +315,7 @@ export default function WaitlistPage() {
                 </Table>
               </div>
 
-              <div className="flex items-center justify-center mt-6 pt-4 border-t border-[#d1d5db]">
+              <div className="flex items-center justify-center mt-6 pt-4">
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
@@ -349,6 +352,7 @@ export default function WaitlistPage() {
               </div>
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
     </div>

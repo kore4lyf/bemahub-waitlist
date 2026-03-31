@@ -51,7 +51,7 @@
 
 @layer components {
   .navbar {
-    @apply bg-white px-5 py-4 shadow-sm w-full;
+    @apply bg-white px-5 py-4 w-full max-w-[1200px] mx-auto;
   }
   .navbar img {
     @apply h-10 w-auto;
@@ -91,7 +91,16 @@
   }
 
   .main {
-    @apply grid grid-cols-1 gap-7 w-full max-w-full min-w-0 mx-auto pb-10;
+    @apply w-full min-w-0 mx-auto py-10;
+  }
+  .main.waitlist {
+    @apply px-5;
+  }
+  .main-content {
+    @apply w-full max-w-[1200px] grid grid-cols-1 gap-7 mx-auto;
+  }
+  .core-main-content {
+    @apply w-full max-w-[1200px] grid grid-cols-1 gap-7 mx-auto;
   }
 
   .form-section {
@@ -300,13 +309,13 @@
     .hero-content { grid-template-columns: 1fr 1fr; max-width: 1200px; gap: 60px; padding: 0 20px; }
     .hero-text { flex: 1; justify-content: flex-start; }
     .form-section { order: 1; }
-    .main { grid-template-columns: 1fr 1fr; max-width: 100%; margin: -80px auto 0; padding: 0 20px 60px; align-items: flex-start; justify-items: center; }
+    .core-main-content { grid-template-columns: 1fr 1fr; max-width: 1200px; margin: -80px auto 0; padding: 0 20px 60px; align-items: flex-start; justify-items: center; }
     .hero-image { display: block; flex: 1; width: 100%; }
     .hero h1 { font-size: 64px; }
     .hero p { font-size: 22px; text-align: left; }
     .form-section { max-width: 450px; margin: 0; }
     .footer-image { display: none; }
-    .steps-section { order: 2; max-width: 450px; margin-top: 100px; }
+    .steps-section { order: 2; max-width: 450px; margin-top: 80px; justify-content: left; }
     .steps-section h2 { margin-bottom: 40px; }
   }
 

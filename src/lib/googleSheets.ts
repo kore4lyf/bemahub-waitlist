@@ -30,10 +30,20 @@ export async function appendToSheet(values: (string | number)[]) {
 
 export async function getRegisteredUsers() {
   try {
-    const response = await fetch(`${APPS_SCRIPT_URL!}?action=getUsers`);
+    const url = `${APPS_SCRIPT_URL!}?action=getUsers`;
+    console.log("Fetching from URL:", url);
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`Failed to fetch users: ${response.statusText}`);
+    }
+
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await response.text();
+      console.error("Non-JSON response:", text);
+      const match = text.match(/TypeError: ([^<]+)/);
+      throw new Error(`Apps Script error: ${match ? match[1].trim() : "Invalid response"}`);
     }
 
     const result = await response.json();
