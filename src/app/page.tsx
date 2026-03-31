@@ -27,8 +27,8 @@ export default function Home() {
           style={{ backgroundImage: `url(${bgImage})` }}
         />
       )}
-      <main className="relative z-10 flex min-h-screen flex-col items-center justify-end pb-[200px] p-8">
-        <Button asChild className="bg-[#ef433e] hover:bg-[#d63936]">
+      <main className="relative z-10 flex h-screen flex-col items-center justify-end p-8">
+        <Button asChild className="absolute bottom-[200px] bg-[#ef433e] hover:bg-[#d63936]">
           <Link href="/core">
             Start Your Journey
           </Link>
